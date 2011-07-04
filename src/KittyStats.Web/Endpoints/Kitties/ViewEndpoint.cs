@@ -15,9 +15,13 @@ namespace KittyStats.Web.Endpoints.Kitties
 
         public KittyViewModel Get(ViewKittyRequest request)
         {
+            var kitty = _repository.Find<Kitty>("kitties/{0}".ToFormat(request.Id));
             return new KittyViewModel
                        {
-                           Kitty = _repository.Find<Kitty>("kitties/{0}".ToFormat(request.Id))
+                           LastMeds = kitty.LastMeds(),
+                           LastStimulated = kitty.LastStimulation(),
+                           Kitty = kitty,
+                           LastFeeding = kitty.LastFeeding()
                        };
         }
     }

@@ -16,6 +16,9 @@
     </ul>
     <div class="cboth"></div>
   </div>
+  <div class="feeding-time">
+    <span>Next feeding @ ${Model.NextFeedingTime.ToString("hh:mm tt")} on ${Model.NextFeedingTime.ToString("MM/dd/yyyy")}</span>
+  </div>
   <ul class="kitties">
     <li each="var kitty in Model.Kitties">
       <a href="${this.Urls.UrlFor(new ViewKittyRequest { Id = kitty.Identifier() })}">

@@ -21,6 +21,9 @@
     ${this.InputFor(m => m.Feeding.WeightAfter).Attr("type", "hidden")}
     ${this.InputFor(m => m.Feeding.FoodType).Attr("type", "hidden")}
     ${this.InputFor(m => m.Feeding.Notes).Attr("type", "hidden")}
+    ${this.InputFor(m => m.Feeding.Stimulated).Attr("style", "display:none")}
+    ${this.InputFor(m => m.Feeding.StimulationResult).Attr("type", "hidden")}
+    ${this.InputFor(m => m.Feeding.MedsGiven).Attr("style", "display:none")}
     <div class="story">
       <p>
         Camille ate at: <span id="AteAt" class="form-val"></span>
@@ -30,6 +33,10 @@
       </p>
       <p>
         Weighed <span id="After" class="form-val"></span> ounces after eating
+      </p>
+      <p>Meds Given: <span id="MedDisplay" class="form-val"></span></p>
+      <p>
+        Stimulated: <span id="StimDisplay" class="form-val"></span>
       </p>
       <blockquote>
         <p id="TheNotes"></p>
@@ -109,6 +116,35 @@
           <span class="ui-button-text">OK</span>
         </button>
       </div>
+    </div>
+  </div>
+  <div id="MedSelector" style="display:none;" title="Did ${Model.Kitty.Name} take his/her meds?" class="time-selector">
+    <button type="button" id="YesMeds" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+      <span class="ui-button-text">Yes</span>
+    </button>
+    <button type="button" id="NoMeds" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+      <span class="ui-button-text">Nope</span>
+    </button>
+  </div>
+  <div id="StimSelector" style="display:none;" title="Was ${Model.Kitty.Name} stimulated?" class="time-selector">
+    <div id="StimButtons">
+      <button type="button" id="YesStim" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+        <span class="ui-button-text">Yes</span>
+      </button>
+      <button type="button" id="NoStim" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+        <span class="ui-button-text">Not this time</span>
+      </button>
+    </div>
+    <div id="StimContainer" style="display:none">
+      <button type="button" id="Stim1" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+        <span class="ui-button-text">Number 1</span>
+      </button>
+      <button type="button" id="Stim2" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+        <span class="ui-button-text">Number 2</span>
+      </button>
+      <button type="button" id="Stim3" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+        <span class="ui-button-text">Abnormal</span>
+      </button>
     </div>
   </div>
 </content:main>

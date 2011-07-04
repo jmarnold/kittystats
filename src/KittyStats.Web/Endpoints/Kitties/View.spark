@@ -12,7 +12,18 @@
     </ul>
     <div class="cboth"></div>
   </div>
-  <h4>Current Weight: ${Model.CurrentWeight}</h4>
+  <div if="Model.LastMeds != null" class="notes" style="margin-bottom:5px">
+    <span>Last meds given @ ${Model.LastMeds.Time.ToString("hh:mm tt")} on ${Model.LastMeds.Time.ToString("MM/dd/yyyy")}</span>
+  </div>
+  <div if="Model.LastStimulated != null" class="notes" style="margin-bottom:5px">
+    <span>Last stimulated @ ${Model.LastStimulated.Time.ToString("hh:mm tt")} on ${Model.LastStimulated.Time.ToString("MM/dd/yyyy")}</span>
+  </div>
+  <div if="Model.LastFeeding != null" class="notes">
+    <span>Last weighed ${Model.LastFeeding.WeightAfter} @ ${Model.LastFeeding.Time.ToString("hh:mm tt")} on ${Model.LastFeeding.Time.ToString("MM/dd/yyyy")}</span>
+    <blockquote if="!string.IsNullOrEmpty(Model.LastFeeding.Notes)">
+      <p>&quot;${Model.LastFeeding.Notes}&quot;</p>
+    </blockquote>
+  </div>
   <div id="WeightChart">
     <script type="application/json">
       {data: ${Model.ChartData().ToJson()} }
@@ -23,15 +34,27 @@
   <script type="text/javascript">
     $(document).ready(function() {
       $.jqplot.config.enablePlugins = true;
-      var line1 = [[-12,7],[-3,14],[2,-1],[7,-1],[11,11], [13, -1]];
       var data = $('#WeightChart').metadata({type:'elem', name:'script'}).data;
       $.jqplot('WeightChart', [data], {
         title: 'Weight over Time',
+        axesDefaults: {
+          tickOptions: {
+            formatString: '%x %r'
+          }
+        },
         seriesDefaults: {showMarker:false, pointLabels:{location:'s', ypadding:2}},
         series:[{lineWidth:4, markerOptions:{style:'square'}}],
         cursor: {tooltipLocation:'sw', zoom:false},
         axesDefaults:{useSeriesColor: true},
-        axes:{yaxis:{pad: 1.3}, xaxis:{renderer:$.jqplot.DateAxisRenderer}}
+        axes: {
+          yaxis: {pad: 1.3}, 
+          xaxis: {
+            renderer:$.jqplot.DateAxisRenderer,
+            tickOptions: {
+              formatString: '%x %r'
+            }
+          }
+        }
       });
     });
   </script>

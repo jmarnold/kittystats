@@ -15,5 +15,8 @@ namespace KittyStats.Domain
         public double WeightAfter { get; set; }
         public string FoodType { get; set; }
         public string Notes { get; set; }
+        public bool Stimulated { get; set; }
+        public string StimulationResult { get; set; }
+        public bool MedsGiven { get; set; }
     }
 }

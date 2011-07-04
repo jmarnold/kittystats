@@ -33,6 +33,9 @@ namespace KittyStats.Web.Models
 
     public class KittyViewModel
     {
+        public Feeding LastStimulated { get; set; }
+        public Feeding LastMeds { get; set; }
+        public Feeding LastFeeding { get; set; }
         public Kitty Kitty { get; set; }
         public double CurrentWeight
         {

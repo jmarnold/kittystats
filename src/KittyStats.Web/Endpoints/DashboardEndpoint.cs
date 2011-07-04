@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using KittyStats.Domain;
 using KittyStats.Web.Models;
@@ -15,9 +16,28 @@ namespace KittyStats.Web.Endpoints
 
         public DashboardModel Get(DashboardRequestModel request)
         {
+            var kitties = _repository.FindAll<Kitty>().ToList();
+            DateTime lastFeed = DateTime.Now;
+            foreach(var kitty in kitties)
+            {
+                var feed = kitty.LastFeeding();
+                if(feed == null)
+                {
+                    continue;
+                }
+
+                if(feed.Time < lastFeed)
+                {
+                    lastFeed = feed.Time;
+                }
+            }
+
+            var nextFeedingTime = lastFeed.AddHours(2);
             return new DashboardModel
                        {
-                           Kitties = _repository.FindAll<Kitty>().ToList()
+                           NextFeedingTime = nextFeedingTime,
+                           Time = (nextFeedingTime - DateTime.Now).Minutes.ToString(),
+                           Kitties = kitties
                        };
         }
     }

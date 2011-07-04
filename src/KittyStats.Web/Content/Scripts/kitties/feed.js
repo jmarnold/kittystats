@@ -17,6 +17,22 @@ $(document).ready(function () {
             modal: true
         });
 
+        $('#StimSelector').dialog({
+            bgiframe: true,
+            autoOpen: false,
+            height: 300,
+            width: 350,
+            modal: true
+        });
+
+        $('#MedSelector').dialog({
+            bgiframe: true,
+            autoOpen: false,
+            height: 300,
+            width: 350,
+            modal: true
+        });
+
         $('#NoteSelector').dialog({
             bgiframe: true,
             autoOpen: false,
@@ -106,7 +122,7 @@ $(document).ready(function () {
         });
 
         $('#NoNotes').click(function () {
-            $('#NoteSelector').dialog('close');
+            recordMeds();
         });
 
         $('#YesNotes').click(function () {
@@ -122,7 +138,48 @@ $(document).ready(function () {
             var value = $('#NoteInput').val();
             $('#TheNotes').html(value);
             $('#FeedingNotes').val(value);
-            $('#NoteSelector').dialog('close');
+
+            recordMeds();
+        });
+
+        $('#YesMeds').click(function () {
+            $('#MedDisplay').html('Yes');
+            $('#FeedingMedsGiven').attr('checked', true);
+            recordStimulation();
+        });
+
+        $('#NoMeds').click(function () {
+            $('#MedDisplay').html('No');
+            recordStimulation();
+        });
+
+        $('#NoStim').click(function () {
+            $('#StimDisplay').html('No');
+            $('#StimSelector').dialog('close');
+        });
+
+        $('#YesStim').click(function () {
+            $('#StimButtons').hide();
+            $('#FeedingStimulated').attr('checked', true);
+            $('#StimContainer').show('slow');
+        });
+
+        $('#Stim1').click(function () {
+            $('#StimDisplay').html('Urine');
+            $('#FeedingStimulationResult').val('U');
+            $('#StimSelector').dialog('close');
+        });
+
+        $('#Stim2').click(function () {
+            $('#StimDisplay').html('Feces');
+            $('#FeedingStimulationResult').val('F');
+            $('#StimSelector').dialog('close');
+        });
+
+        $('#Stim3').click(function () {
+            $('#StimDisplay').html('Abnormal');
+            $('#FeedingStimulationResult').val('Abn');
+            $('#StimSelector').dialog('close');
         });
     }
 
@@ -149,6 +206,15 @@ $(document).ready(function () {
         $('#NoteSelector').dialog('open');
     }
 
+    function recordMeds() {
+        $('#NoteSelector').dialog('close');
+        $('#MedSelector').dialog('open');
+    }
+
+    function recordStimulation() {
+        $('#MedSelector').dialog('close');
+        $('#StimSelector').dialog('open');
+    }
 
     setupWidgets();
 });

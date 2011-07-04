@@ -23,6 +23,22 @@ namespace KittyStats.Domain
                 .FirstOrDefault();
         }
 
+        public Feeding LastMeds()
+        {
+            return Feedings
+                .Where(f => f.MedsGiven)
+                .OrderByDescending(f => f.Time)
+                .FirstOrDefault();
+        }
+
+        public Feeding LastStimulation()
+        {
+            return Feedings
+                .Where(f => f.Stimulated)
+                .OrderByDescending(f => f.Time)
+                .FirstOrDefault();
+        }
+
         public string Identifier()
         {
             return Id.Replace("kitties/", "");

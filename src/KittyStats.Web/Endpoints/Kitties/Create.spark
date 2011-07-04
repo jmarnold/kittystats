@@ -1,0 +1,20 @@
+﻿<viewdata model="KittyStats.Domain.Kitty" />
+<content:title>New Kitty</content:title>
+<content:main>
+  <h2>New Kitty</h2>
+  <Form model="KittyStats.Domain.Kitty">
+    <fieldset>
+      <div class="row">
+        <LabelFor property="Name" />
+        <InputFor property="Name" />
+      </div>
+      <div class="row">
+        <LabelFor property="BirthDate" />
+        <InputFor property="BirthDate" />
+      </div>
+      <div class="row row-submit">
+        <input type="submit" value="Save" class="ui-button ui-widget ui-state-default ui-corner-all" role="button"/>
+      </div>
+    </fieldset>
+  </Form>
+</content:main>

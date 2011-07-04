@@ -1,0 +1,26 @@
+ul.kitties li
+{
+    display: inline;
+    list-style: none;
+    width: 150px;
+    min-height: 175px;
+    float: left;
+    margin: 0 10px 10px 0;
+    text-align: center;
+}
+
+ul.kitties li a
+{
+    color: #333;
+    text-decoration: none;
+}
+
+ul.kitties li a img
+{
+    color: #fff;
+}
+
+ul.kitties li:hover
+{
+    border: 2px solid #ccc;
+}

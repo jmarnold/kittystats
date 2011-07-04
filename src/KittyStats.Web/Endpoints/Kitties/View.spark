@@ -1,0 +1,38 @@
+﻿<viewdata model="KittyStats.Web.Models.KittyViewModel" />
+<content:title>${Model.Kitty.Name}</content:title>
+<content:main>
+  <div class="page-header">
+    <h2>${Model.Kitty.Name}</h2>
+    <ul class="page-actions">
+      <li>
+        <a href="${this.Urls.UrlFor(new LogFeedingRequest { Id = Model.Kitty.Identifier() })}" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+          <span class="ui-button-text">+ ${Model.Kitty.Name} just had noms</span>
+        </a>
+      </li>
+    </ul>
+    <div class="cboth"></div>
+  </div>
+  <h4>Current Weight: ${Model.CurrentWeight}</h4>
+  <div id="WeightChart">
+    <script type="application/json">
+      {data: ${Model.ChartData().ToJson()} }
+    </script>
+  </div>
+</content:main>
+<content:scripts>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $.jqplot.config.enablePlugins = true;
+      var line1 = [[-12,7],[-3,14],[2,-1],[7,-1],[11,11], [13, -1]];
+      var data = $('#WeightChart').metadata({type:'elem', name:'script'}).data;
+      $.jqplot('WeightChart', [data], {
+        title: 'Weight over Time',
+        seriesDefaults: {showMarker:false, pointLabels:{location:'s', ypadding:2}},
+        series:[{lineWidth:4, markerOptions:{style:'square'}}],
+        cursor: {tooltipLocation:'sw', zoom:false},
+        axesDefaults:{useSeriesColor: true},
+        axes:{yaxis:{pad: 1.3}, xaxis:{renderer:$.jqplot.DateAxisRenderer}}
+      });
+    });
+  </script>
+</content:scripts>

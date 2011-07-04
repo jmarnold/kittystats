@@ -1,0 +1,28 @@
+﻿<use namespace="KittyStats.Web.Models "/>
+<viewdata model="KittyStats.Web.Models.DashboardModel" />
+<content:title>Dashboard</content:title>
+<content:head>
+  <Stylesheet href="dashboard.css" />
+</content:head>
+<content:main>
+  <div class="page-header">
+    <h2>Your Kitties</h2>
+    <ul class="page-actions">
+      <li>
+        <a href="${this.Urls.UrlFor(new CreateKittyRequest())}" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+          <span class="ui-button-text">+ New Kitty</span>
+        </a>
+      </li>
+    </ul>
+    <div class="cboth"></div>
+  </div>
+  <ul class="kitties">
+    <li each="var kitty in Model.Kitties">
+      <a href="${this.Urls.UrlFor(new ViewKittyRequest { Id = kitty.Identifier() })}">
+        <Image src="kitty.png" />
+        <br/>
+        <span>${kitty.Name}</span>
+      </a>
+    </li>
+  </ul>
+</content:main>

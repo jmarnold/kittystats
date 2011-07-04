@@ -1,0 +1,26 @@
+.selector
+{
+    margin: 3em;
+}
+
+.time-selector
+{
+    margin: 3em;
+    text-align: center;
+}
+
+.form-val
+{
+    font-weight: bold;   
+}
+
+.story
+{
+    font-size: 1.2em;
+}
+
+.story p
+{
+    margin-top: 0;
+    margin-bottom: .5em;
+}

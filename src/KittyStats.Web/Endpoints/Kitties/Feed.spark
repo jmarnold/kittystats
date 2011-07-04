@@ -1,0 +1,117 @@
+﻿<use namespace="KittyStats.Web.Models "/>
+<viewdata model="KittyStats.Web.Models.LogFeedViewModel" />
+<content:title>Log Feeding</content:title>
+<content:head>
+  <Stylesheet href="kitties.css" />
+</content:head>
+<content:main>
+  <h2>
+    <a href="${this.Urls.UrlFor(new ViewKittyRequest { Id = Model.Kitty.Identifier() })}">${Model.Kitty.Name}</a> had noms
+  </h2>
+  <div if="Model.LastFeeding != null" class="notes">
+    <span>Last weighed ${Model.LastFeeding.WeightAfter} @ ${Model.LastFeeding.Time.ToString("hh:mm tt")} on ${Model.LastFeeding.Time.ToString("MM/dd/yyyy")}</span>
+    <blockquote>
+      <p>&quot;${Model.LastFeeding.Notes}&quot;</p>
+    </blockquote>
+  </div>
+  <Form model="KittyStats.Commands.LogFeed">
+    <InputFor property="KittyId" />
+    ${this.InputFor(m => m.Feeding.Time).Attr("type", "hidden")}
+    ${this.InputFor(m => m.Feeding.WeightBefore).Attr("type", "hidden")}
+    ${this.InputFor(m => m.Feeding.WeightAfter).Attr("type", "hidden")}
+    ${this.InputFor(m => m.Feeding.FoodType).Attr("type", "hidden")}
+    ${this.InputFor(m => m.Feeding.Notes).Attr("type", "hidden")}
+    <div class="story">
+      <p>
+        Camille ate at: <span id="AteAt" class="form-val"></span>
+      </p>
+      <p>
+        Weighed <span id="Before" class="form-val"></span> ounces before eating
+      </p>
+      <p>
+        Weighed <span id="After" class="form-val"></span> ounces after eating
+      </p>
+      <blockquote>
+        <p id="TheNotes"></p>
+      </blockquote>
+    </div>
+    <div class="row row-submit">
+      <input type="submit" value="Save" class="ui-button ui-widget ui-state-default ui-corner-all" role="button"/>
+    </div>
+  </Form>
+  <div id="TimeSelector" style="display:none;" title="When did ${Model.Kitty.Name} eat?" class="time-selector">
+    <div id="TimeButtons">
+      <button type="button" id="JustNow" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+        <span class="ui-button-text">Just Now</span>
+      </button>
+      <button type="button" id="Earlier" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+        <span class="ui-button-text">Earlier</span>
+      </button>
+    </div>
+    <div id="EarlierContainer" style="display:none">
+      <div class="row">
+        <LabelFor property="Feeding.Time" />
+        ${this.InputFor(m => m.Feeding.Time).Attr("id", "EarlierTime")}
+      </div>
+      <div class="row row-submit">
+        <button type="button" id="TimeOK" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+          <span class="ui-button-text">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="BeforeSelector" style="display:none;" title="What did ${Model.Kitty.Name} weight before eating?" class="time-selector">
+    <div id="before-slider"></div>
+    <p>
+      <span id="WeightDisplay"></span> ounces
+    </p>
+    <div class="row row-submit">
+      <button type="button" id="BeforeOK" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+        <span class="ui-button-text">Next</span>
+      </button>
+    </div>
+  </div>
+  <div id="AfterSelector" style="display:none;" title="What did ${Model.Kitty.Name} weight after eating?" class="time-selector">
+    <div id="after-slider"></div>
+    <p>
+      <span id="AfterWeightDisplay"></span> ounces
+    </p>
+    <div class="row row-submit">
+      <button type="button" id="AfterOK" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+        <span class="ui-button-text">Next</span>
+      </button>
+    </div>
+  </div>
+  <div id="FoodTypeSelector" style="display:none;" title="What type of food did ${Model.Kitty.Name} eat?" class="selector">
+    <input type="text" id="FoodType" value="${Model.Feeding.FoodType}" />
+    <div class="row row-submit">
+      <button type="button" id="SelectFoodType" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+        <span class="ui-button-text">Next</span>
+      </button>
+    </div>
+  </div>
+  <div id="NoteSelector" style="display:none;" title="Any notes?" class="time-selector">
+    <div id="NoteButtons">
+      <button type="button" id="YesNotes" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+        <span class="ui-button-text">Yes</span>
+      </button>
+      <button type="button" id="NoNotes" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+        <span class="ui-button-text">Nope</span>
+      </button>
+    </div>
+    <div id="NoteContainer" style="display:none">
+      <div class="row">
+        <LabelFor property="Feeding.Notes" />
+        ${this.InputFor(m => m.Feeding.Notes).Attr("id", "NoteInput").Attr("size", "30")}
+      </div>
+      <div class="row row-submit">
+        <button type="button" id="NoteOK" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+          <span class="ui-button-text">OK</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</content:main>
+<content:scripts>
+  <Script src="kitties/feed.js" />
+</content:scripts>
